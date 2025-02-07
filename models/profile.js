@@ -11,7 +11,7 @@ const profileSchema = new mongoose.Schema({
     required: [true, "Please provide an age"],
     validate: {
       message: "You must be at least 18 years old to use this app",
-      validator: (age) => age <= 18,
+      validator: (age) => age >= 18,
     },
   },
   bio: {
@@ -54,7 +54,7 @@ const profileSchema = new mongoose.Schema({
   matches: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Profile",
     },
   ],
 });
