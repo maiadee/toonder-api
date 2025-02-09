@@ -66,12 +66,12 @@ router.put("/profiles/:id", validateToken, async (req, res, next) => {
 // Show filtered list of all potential matches
 // * not tested!
 
-router.get("/profiles", async (req, res, next) => {
+router.get("/profiles", validateToken, async (req, res, next) => {
   try {
-    const { gender } = req.query;
+    const { preference } = req.query;
 
     // if gender is provided, filter by it
-    const filter = gender ? { gender } : {};
+    const filter = preference ? { preference } : {};
 
     const filteredProfiles = await Profile.filter(filter)
       .populate("name")
@@ -87,6 +87,33 @@ router.get("/profiles", async (req, res, next) => {
 });
 
 // Show all matches
+
+router.get("profiles/matches", validateToken, async (req, res, next) => {
+    try {
+        const userId = req.user._id; // Extract user ID from the JWT token
+
+        // Find the user's profile using the user ID from the token
+        const userProfile = await Profile.findOne({ owner: userId });
+
+        // Get the user's matches array from their profile
+        const userMatches = userProfile.matches;
+
+        // If no matches, return an empty array
+        if (!userMatches || userMatches.length === 0) {
+          return res.json([]);
+        }
+
+        // Find all profiles where the owner's ID is in the matches array
+        const matchedProfiles = await Profile.find({
+          profile: { $in: userMatches }, // Match profiles where `owner` is in the `matches` array
+        });
+
+        // Return the matched profiles
+        res.json(matchedProfiles);
+    } catch (error) {
+        
+    }
+})
 
 // Delete a match
 
