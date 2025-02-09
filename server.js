@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import mongoSantize from "express-mongo-sanitize";
+import mongoSanitize from "express-mongo-sanitize";
 import "dotenv/config";
 
 import logger from "./middleware/logger.js";
@@ -8,14 +8,21 @@ import errorHandler from "./middleware/errorHandler.js";
 
 // import controllers/routes
 
+import userController from "./controllers/userController.js";
+import profileController from "./controllers/profileController.js";
+import messageController from "./controllers/messageController.js";
+
 const app = express();
-const port = process.env.PORT || 3000; 
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(mongoSanitize());
 app.use(logger);
 
 // controllers/routes
+app.use("/", userController);
+app.use("/", profileController);
+app.use("/", messageController);
 
 app.use(errorHandler);
 

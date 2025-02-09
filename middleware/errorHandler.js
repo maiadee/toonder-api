@@ -24,7 +24,8 @@ export default function errorHandler(e, req, res, next) {
     });
   } else {
     res.status(500).send({
-      message: "Something went wrong. Please check your request and try again!",
+      message:
+        "🔥 Uh-oh! Something went wrong on our end. Give us a moment and try again.",
     });
   }
 }

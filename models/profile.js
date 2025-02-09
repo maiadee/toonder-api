@@ -7,7 +7,7 @@ const profileSchema = new mongoose.Schema({
     required: [true, "Please provide a name."],
   },
   age: {
-    type: number,
+    type: Number,
     required: [true, "Please provide an age"],
     validate: {
       message: "You must be at least 18 years old to use this app",
@@ -49,7 +49,7 @@ const profileSchema = new mongoose.Schema({
   ],
   profileImage: {
     type: String,
-    required: [true, "Please provide a profile image"],
+    // required: [true, "Please provide a profile image"],
   },
   matches: [
     {
