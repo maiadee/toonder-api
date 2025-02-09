@@ -8,10 +8,6 @@ import users from "../userData.js";
 import dotenv from "dotenv";
 dotenv.config();
 
-// make a user data base
-// make a profile data base
-// use map to give each profile a user
-
 async function seed() {
   console.log(`hello seed`);
 
@@ -31,6 +27,10 @@ async function seed() {
 
   const newProfiles = await Profile.create(profiles);
   console.log(newProfiles);
+
+  const profileWithUser = profiles.map((profile, idx) => {
+    return { ...profile, owner: newUsers[idx]._id };
+  });
 
   await newProfiles[0].save();
 
