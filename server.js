@@ -10,7 +10,6 @@ import errorHandler from "./middleware/errorHandler.js";
 
 import userController from "./controllers/userController.js";
 import profileController from "./controllers/profileController.js";
-import messageController from "./controllers/messageController.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,7 +21,6 @@ app.use(logger);
 // controllers/routes
 app.use("/", userController);
 app.use("/", profileController);
-app.use("/", messageController);
 
 app.use(errorHandler);
 
