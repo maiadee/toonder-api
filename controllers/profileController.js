@@ -5,35 +5,32 @@ import User from "../models/user.js";
 
 const router = express.Router();
 
-// Create your profile
-
 router.post("/profiles", validateToken, async (req, res, next) => {
   try {
-    req.body._id = req.user._id;
     const profile = await Profile.create(req.body);
+    const updateUser = await User.findByIdAndUpdate(
+      req.user._id, 
+      { $set: {profile: profile._id} }, 
+      {new: true}
+    )
+    console.log(updateUser)
     return res.status(201).json(profile);
   } catch (error) {
     next(error);
   }
 });
 
-// Show all matches
-
 router.get("/profiles/matches", validateToken, async (req, res, next) => {
   try {
-    // Find the user's profile using the user ID from the token
     const userProfile = await Profile.findById(req.user.profile).populate(
       "matches"
     );
 
-    // Return the matched profiles
     res.json(userProfile.matches);
   } catch (error) {
     next(error);
   }
 });
-
-// Show a single profile
 
 router.get("/profiles/:id", async (req, res, next) => {
   try {
@@ -54,8 +51,6 @@ router.get("/profiles/:id", async (req, res, next) => {
     next(error);
   }
 });
-
-// Update your profile
 
 router.put("/profiles/:id", validateToken, async (req, res, next) => {
   try {
@@ -80,8 +75,6 @@ router.put("/profiles/:id", validateToken, async (req, res, next) => {
   }
 });
 
-// Show filtered list of all potential matches
-
 router.get("/profiles", validateToken, async (req, res, next) => {
   try {
     const userProfileId = req.user.profile;
@@ -90,14 +83,13 @@ router.get("/profiles", validateToken, async (req, res, next) => {
     const likedProfiles = userProfile.likes || [];
 
     let query = {
-      _id: { $nin: [...likedProfiles, userProfileId] }, // Exclude own profile and liked profiles
-      gender: userProfile.preferences, // Match profiles with the gender you prefer
-      preferences: userProfile.gender, // Match profiles who prefer your gender
+      _id: { $nin: [...likedProfiles, userProfileId] },
+      gender: userProfile.preferences, 
+      preferences: userProfile.gender, 
     };
 
-    // If either party prefers 'both', include them
     if (userProfile.preferences === "no preference") {
-      delete query.gender; // Don't filter by gender if user prefers both
+      delete query.gender;
     }
 
     const filteredProfiles = await Profile.find(query)
@@ -111,8 +103,6 @@ router.get("/profiles", validateToken, async (req, res, next) => {
     next(error);
   }
 });
-
-// Delete a match
 
 router.delete(
   "/profiles/matches/:id",
@@ -138,8 +128,6 @@ router.delete(
   }
 );
 
-// Like a profile
-
 router.put("/profiles/:id/likes", validateToken, async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -156,16 +144,13 @@ router.put("/profiles/:id/likes", validateToken, async (req, res, next) => {
 
     let message = "👍💖 You have successfully liked this profile!";
 
-    // Check if mutual like exists (i.e., profile already liked the user)
     if (likedProfile.likes.includes(loggedInProfileId)) {
-      // Add to matches if not already there
       loggedInProfile.matches.push(id);
       likedProfile.matches.push(loggedInProfileId);
 
       message = "💖💍 It's a match!";
     }
 
-    // Save profile's updated likes
     await loggedInProfile.save();
     await likedProfile.save();
 
@@ -175,28 +160,30 @@ router.put("/profiles/:id/likes", validateToken, async (req, res, next) => {
   }
 });
 
-// Dislike a profile
-
-router.put("/profiles/:id", validateToken, async (req, res, next) => {
+router.put("/profiles/:id/dislikes", validateToken, async (req, res, next) => {
   try {
     const { id } = req.params;
+    
+    const loggedInProfileId = req.user.profile;
 
-    const userId = req.user._id;
+    const loggedInProfile = await Profile.findById(loggedInProfileId);
+    const dislikedProfile = await Profile.findById(id);
 
-    const user = await User.findById(userId);
-    const profile = await Profile.findById(id);
+    if (!loggedInProfile || !dislikedProfile) {
+      return res.status(404).json({ message: "Profile not found." });
+    }
 
-    // check whether users id exists in profile's like array
-    user.dislikes.push(id);
+    if (!loggedInProfile.dislikes.includes(id)) {
+      loggedInProfile.dislikes.push(id);
+    }
 
-    await user.save();
+    await loggedInProfile.save();
 
-    res
-      .status(200)
-      .json({ message: "👎💔 You have successfully disliked this profile!" });
+    res.status(200).json({ message: "👎💔 You have successfully disliked this profile!" });
   } catch (error) {
     next(error);
   }
 });
+
 
 export default router;

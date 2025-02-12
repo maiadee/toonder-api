@@ -14,8 +14,9 @@ const profileSchema = new mongoose.Schema({
       validator: (age) => age >= 18,
     },
   },
-  bio: {
+  location: {
     type: String,
+    required: [true, "Please provide a location"],
   },
   gender: {
     type: String,
@@ -24,10 +25,9 @@ const profileSchema = new mongoose.Schema({
   preferences: {
     type: String,
     required: [true, "Please provide a preference"],
-  },
-  location: {
+  }, 
+  bio: {
     type: String,
-    required: [true, "Please provide a location"],
   },
   passions: {
     type: String,
