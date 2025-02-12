@@ -37,6 +37,41 @@ router.get(
   }
 );
 
+router.get("/profiles/index", validateToken, async (req, res, next) => {
+  try {
+    const userProfileId = req.user.profile; // Current user's profile ID
+
+    const userProfile = await Profile.findById(userProfileId);
+
+    if (!userProfile) {
+      return res.status(404).json({ message: "User profile not found." });
+    }
+
+    const likedProfiles = userProfile.likes || []; // Profiles the user has liked
+
+    // Build query to exclude liked profiles and the user's own profile
+    let query = {
+      _id: { $nin: [...likedProfiles, userProfileId] }, // Exclude liked and own profile
+      gender: userProfile.preferences, // Match gender to user's preferences
+      preferences: userProfile.gender, // Match preferences to user's gender
+    };
+
+    // Remove gender filter if preference is "no preference"
+    if (userProfile.preferences === "no preference") {
+      delete query.gender;
+    }
+
+    // Fetch one random profile that matches the query
+    const filteredProfiles = await Profile.find(query)
+      .select("name age location profileImage")
+      .limit(1);
+
+    res.json(filteredProfiles[0] || null); // Send the first profile or null if no matches
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get("/profiles/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -75,40 +110,6 @@ router.put("/profiles/:id", validateToken, async (req, res, next) => {
     });
 
     return res.json(updatedProfile);
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.get("/profiles", validateToken, async (req, res, next) => {
-  try {
-    const userProfileId = req.user.profile; // Current user's profile ID
-    const userProfile = await Profile.findById(userProfileId);
-
-    if (!userProfile) {
-      return res.status(404).json({ message: "User profile not found." });
-    }
-
-    const likedProfiles = userProfile.likes || []; // Profiles the user has liked
-
-    // Build query to exclude liked profiles and the user's own profile
-    let query = {
-      _id: { $nin: [...likedProfiles, userProfileId] }, // Exclude liked and own profile
-      gender: userProfile.preferences, // Match gender to user's preferences
-      preferences: userProfile.gender, // Match preferences to user's gender
-    };
-
-    // Remove gender filter if preference is "no preference"
-    if (userProfile.preferences === "no preference") {
-      delete query.gender;
-    }
-
-    // Fetch filtered profiles, selecting only the fields you want
-    const filteredProfiles = await Profile.find(query).select(
-      "name age location profileImage"
-    );
-
-    res.json(filteredProfiles);
   } catch (error) {
     next(error);
   }
