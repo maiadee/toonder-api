@@ -9,11 +9,11 @@ router.post("/profiles", validateToken, async (req, res, next) => {
   try {
     const profile = await Profile.create(req.body);
     const updateUser = await User.findByIdAndUpdate(
-      req.user._id, 
-      { $set: {profile: profile._id} }, 
-      {new: true}
-    )
-    console.log(updateUser)
+      req.user._id,
+      { $set: { profile: profile._id } },
+      { new: true }
+    );
+    console.log(updateUser);
     return res.status(201).json(profile);
   } catch (error) {
     next(error);
@@ -77,26 +77,31 @@ router.put("/profiles/:id", validateToken, async (req, res, next) => {
 
 router.get("/profiles", validateToken, async (req, res, next) => {
   try {
-    const userProfileId = req.user.profile;
+    const userProfileId = req.user.profile; // Current user's profile ID
     const userProfile = await Profile.findById(userProfileId);
 
-    const likedProfiles = userProfile.likes || [];
+    if (!userProfile) {
+      return res.status(404).json({ message: "User profile not found." });
+    }
 
+    const likedProfiles = userProfile.likes || []; // Profiles the user has liked
+
+    // Build query to exclude liked profiles and the user's own profile
     let query = {
-      _id: { $nin: [...likedProfiles, userProfileId] },
-      gender: userProfile.preferences, 
-      preferences: userProfile.gender, 
+      _id: { $nin: [...likedProfiles, userProfileId] }, // Exclude liked and own profile
+      gender: userProfile.preferences, // Match gender to user's preferences
+      preferences: userProfile.gender, // Match preferences to user's gender
     };
 
+    // Remove gender filter if preference is "no preference"
     if (userProfile.preferences === "no preference") {
       delete query.gender;
     }
 
-    const filteredProfiles = await Profile.find(query)
-      .populate("name")
-      .populate("age")
-      .populate("location")
-      .populate("profileImage");
+    // Fetch filtered profiles, selecting only the fields you want
+    const filteredProfiles = await Profile.find(query).select(
+      "name age location profileImage"
+    );
 
     res.json(filteredProfiles);
   } catch (error) {
@@ -163,7 +168,7 @@ router.put("/profiles/:id/likes", validateToken, async (req, res, next) => {
 router.put("/profiles/:id/dislikes", validateToken, async (req, res, next) => {
   try {
     const { id } = req.params;
-    
+
     const loggedInProfileId = req.user.profile;
 
     const loggedInProfile = await Profile.findById(loggedInProfileId);
@@ -179,11 +184,12 @@ router.put("/profiles/:id/dislikes", validateToken, async (req, res, next) => {
 
     await loggedInProfile.save();
 
-    res.status(200).json({ message: "👎💔 You have successfully disliked this profile!" });
+    res
+      .status(200)
+      .json({ message: "👎💔 You have successfully disliked this profile!" });
   } catch (error) {
     next(error);
   }
 });
-
 
 export default router;
