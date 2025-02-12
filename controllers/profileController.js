@@ -20,17 +20,22 @@ router.post("/profiles", validateToken, async (req, res, next) => {
   }
 });
 
-router.get("/profiles/matches", validateToken, async (req, res, next) => {
-  try {
-    const userProfile = await Profile.findById(req.user.profile).populate(
-      "matches"
-    );
+router.get(
+  "/profiles/:profileId/matches",
+  validateToken,
+  async (req, res, next) => {
+    try {
+      const userProfile = await Profile.findById(req.user.profile).populate({
+        path: "matches",
+        select: "name age location profileImage", // Only include these fields
+      });
 
-    res.json(userProfile.matches);
-  } catch (error) {
-    next(error);
+      res.json(userProfile.matches);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.get("/profiles/:id", async (req, res, next) => {
   try {
