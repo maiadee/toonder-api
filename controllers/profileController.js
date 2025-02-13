@@ -21,7 +21,7 @@ router.post("/profiles", validateToken, async (req, res, next) => {
 });
 
 router.get(
-  "/profiles/:profileId/matches",
+   "/profiles/:profileId/matches",
   validateToken,
   async (req, res, next) => {
     try {
@@ -29,6 +29,7 @@ router.get(
         path: "matches",
         select: "name age location profileImage", // Only include these fields
       });
+      console.log(userProfile.matches);
 
       res.json(userProfile.matches);
     } catch (error) {
@@ -120,19 +121,24 @@ router.delete(
   validateToken,
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const profile = await Profile.findById(id);
+      const { id } = req.params; // ID of the match to remove
 
-      if (!req.user.profile.equals(profile._id))
-        return res.status(403).json({
-          message: "You do not have permssion to access this resource",
-        });
+      // Fetch the logged-in user's profile
+      const userProfile = await Profile.findById(req.user.profile);
 
-      await Profile.findByIdAndDelete(id, req.body, {
-        returnDocument: "after",
-      });
+      if (!userProfile) {
+        return res.status(404).json({ message: "User profile not found" });
+      }
 
-      return res.sendStatus(204);
+      // Remove the match from the logged-in user's matches array
+      userProfile.matches = userProfile.matches.filter(
+        (matchId) => matchId.toString() !== id
+      );
+
+      // Save the updated profile
+      await userProfile.save();
+
+      return res.sendStatus(204); // Successfully removed match
     } catch (error) {
       next(error);
     }
