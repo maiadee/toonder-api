@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/user.js";
 import Profile from "../models/profile.js";
-import Message from "../models/message.js";
 import profiles from "../data/profileData.js";
 import users from "../data/userData.js";
 
@@ -27,7 +26,7 @@ async function seed() {
     profile: newProfiles[idx]._id, // Assign the profile ID to the user
   }));
 
-  // Create users with profile references
+  // Create users with profile preferences
   const newUsers = await User.create(usersWithProfiles);
   console.log(newUsers);
 

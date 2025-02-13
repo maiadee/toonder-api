@@ -27,7 +27,7 @@ router.get(
     try {
       const userProfile = await Profile.findById(req.user.profile).populate({
         path: "matches",
-        select: "name age location profileImage", // Only include these fields
+        select: "name age location profileImage", 
       });
       console.log(userProfile.matches);
 
@@ -40,7 +40,7 @@ router.get(
 
 router.get("/profiles/index", validateToken, async (req, res, next) => {
   try {
-    const userProfileId = req.user.profile; // Current user's profile ID
+    const userProfileId = req.user.profile; 
 
     const userProfile = await Profile.findById(userProfileId);
 
@@ -48,18 +48,8 @@ router.get("/profiles/index", validateToken, async (req, res, next) => {
       return res.status(404).json({ message: "User profile not found." });
     }
 
-    const likedProfiles = userProfile.likes || []; // Profiles the user has liked
-    const dislikedProfiles = userProfile.dislikes || []; // Profiles the user has disliked
-
-    // let query = {
-    //   _id: { $nin: [...likedProfiles, ...dislikedProfiles, userProfileId] }, // Exclude liked, disliked, and own profile
-    // };
-
-    // // Apply gender and preferences filtering only if the user has preferences
-    // if (userProfile.preferences !== "No Preference") {
-    //   query.gender = userProfile.preferences; // Match gender to user's preferences
-    //   query.preferences = { $in: [userProfile.gender, "No Preference"] }; // Match preferences to user's gender
-    // }
+    const likedProfiles = userProfile.likes || []; 
+    const dislikedProfiles = userProfile.dislikes || []; 
 
     let query = {
       _id: { $nin: [...likedProfiles, ...dislikedProfiles, userProfileId] },
@@ -67,7 +57,7 @@ router.get("/profiles/index", validateToken, async (req, res, next) => {
     if (userProfile.preferences !== "No Preference") {
       query.gender = userProfile.preferences; // Match the gender the current user wants to see
     }
-    // Match preferences: The other user's preference should be the current user's gender OR "No Preference"
+    // Match preferences - The other user's preference should be the current user's gender OR "No Preference"
     query.preferences = { $in: [userProfile.gender, "No Preference"] };
 
     // Fetch one random profile that matches the query
@@ -194,7 +184,6 @@ router.put("/profiles/:id/dislikes", validateToken, async (req, res, next) => {
       return res.status(404).json({ message: "Profile not found." });
     }
 
-    // Add the disliked profile to the dislikes array if not already present
     if (!loggedInProfile.dislikes.includes(id)) {
       loggedInProfile.dislikes.push(id);
     }
@@ -204,17 +193,15 @@ router.put("/profiles/:id/dislikes", validateToken, async (req, res, next) => {
 
     // Build query to find the next profile, excluding disliked profiles and the logged-in user
     const query = {
-      _id: { $nin: [...loggedInProfile.dislikes, loggedInProfileId] }, // Exclude disliked profiles and own profile
-      gender: loggedInProfile.preferences, // Match gender to user's preferences
-      preferences: loggedInProfile.gender, // Match preferences to user's gender
+      _id: { $nin: [...loggedInProfile.dislikes, loggedInProfileId] }, 
+      gender: loggedInProfile.preferences, 
+      preferences: loggedInProfile.gender, 
     };
 
-    // Remove the gender filter if the user's preference is "no preference"
-    if (loggedInProfile.preferences === "no preference") {
+    if (loggedInProfile.preferences === "No Preference") {
       delete query.gender;
     }
 
-    // Fetch the next available profile that is neither liked nor disliked
     const nextProfile = await Profile.find(query)
       .select("name age location profileImage")
       .limit(1);
@@ -226,7 +213,6 @@ router.put("/profiles/:id/dislikes", validateToken, async (req, res, next) => {
       });
     }
 
-    // Send back the next profile
     return res.status(200).json({
       message: "👎💔 You have successfully disliked this profile!",
       nextProfile: nextProfile[0], // Send the next profile (first profile in the array)
