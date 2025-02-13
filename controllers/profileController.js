@@ -51,15 +51,24 @@ router.get("/profiles/index", validateToken, async (req, res, next) => {
     const likedProfiles = userProfile.likes || []; // Profiles the user has liked
     const dislikedProfiles = userProfile.dislikes || []; // Profiles the user has disliked
 
-    let query = {
-      _id: { $nin: [...likedProfiles, ...dislikedProfiles, userProfileId] }, // Exclude liked, disliked, and own profile
-    };
+    // let query = {
+    //   _id: { $nin: [...likedProfiles, ...dislikedProfiles, userProfileId] }, // Exclude liked, disliked, and own profile
+    // };
 
-    // Apply gender and preferences filtering only if the user has preferences
+    // // Apply gender and preferences filtering only if the user has preferences
+    // if (userProfile.preferences !== "No Preference") {
+    //   query.gender = userProfile.preferences; // Match gender to user's preferences
+    //   query.preferences = { $in: [userProfile.gender, "No Preference"] }; // Match preferences to user's gender
+    // }
+
+    let query = {
+      _id: { $nin: [...likedProfiles, ...dislikedProfiles, userProfileId] },
+    };
     if (userProfile.preferences !== "No Preference") {
-      query.gender = userProfile.preferences; // Match gender to user's preferences
-      query.preferences = userProfile.gender; // Match preferences to user's gender
+      query.gender = userProfile.preferences; // Match the gender the current user wants to see
     }
+    // Match preferences: The other user's preference should be the current user's gender OR "No Preference"
+    query.preferences = { $in: [userProfile.gender, "No Preference"] };
 
     // Fetch one random profile that matches the query
     const filteredProfiles = await Profile.find(query)
@@ -71,7 +80,6 @@ router.get("/profiles/index", validateToken, async (req, res, next) => {
     next(error);
   }
 });
- 
 
 router.get("/profiles/:id", async (req, res, next) => {
   try {
@@ -227,6 +235,5 @@ router.put("/profiles/:id/dislikes", validateToken, async (req, res, next) => {
     next(error);
   }
 });
-
 
 export default router;
