@@ -1,44 +1,62 @@
 export default [
   {
-    username: "alice_j",
-    email: "alice.johnson@example.com",
-    password: "Alic3@pass!",
+    username: "RapunzelLover20",
+    email: "rapunzel@coronakingdom.com",
+    password: "GoldenLocks2025!",
   },
   {
-    username: "michael_s",
-    email: "michael.smith@example.com",
-    password: "Mik3@secure!",
+    username: "ArielExplorer",
+    email: "ariel@atlantica.com",
+    password: "UnderTheSea18!",
   },
   {
-    username: "sophia_m",
-    email: "sophia.martinez@example.com",
-    password: "Sophi@25#Pass",
+    username: "HercTheHero",
+    email: "hercules@mountolympus.com",
+    password: "StrongMan22!",
   },
   {
-    username: "james_a",
-    email: "james.anderson@example.com",
-    password: "Jam3s@secure!",
+    username: "IceQueenElsa",
+    email: "elsa@arendelle.com",
+    password: "LetItGo25!",
   },
   {
-    username: "emma_b",
-    email: "emma.brown@example.com",
-    password: "Emm@27#Strong",
+    username: "WarriorMulan",
+    email: "mulan@china.com",
+    password: "BraveHeart23!",
   },
   {
-    username: "daniel_l",
-    email: "daniel.lee@example.com",
-    password: "Dani3l@Safe!",
+    username: "ChefTiana",
+    email: "tiana@neworleans.com",
+    password: "BeOurGuest24!",
   },
   {
-    username: "olivia_w",
-    email: "olivia.wilson@example.com",
-    password: "Oliv@26#Sure",
+    username: "FlynnAdventurer",
+    email: "flynn@coronakingdom.com",
+    password: "SmolderKing25!",
   },
   {
-    username: "ethan_h",
-    email: "ethan.harris@example.com",
-    password: "Ethan31@Rock",
+    username: "SweetSnowWhite",
+    email: "snowwhite@enchantedforest.com",
+    password: "ApplePie19!",
+  },
+  {
+    username: "FrostJack",
+    email: "jackfrost@winterrealm.com",
+    password: "SnowTime21!",
+  },
+  {
+    username: "MeridaTheBrave",
+    email: "merida@dunbroch.com",
+    password: "WildSpirit20!",
+  },
+  {
+    username: "NaveenThePrince",
+    email: "naveen@maldonia.com",
+    password: "FrogPrince26!",
+  },
+  {
+    username: "VoyagerMoana",
+    email: "moana@motunui.com",
+    password: "Wayfinder19!",
   },
 ];
-
-
