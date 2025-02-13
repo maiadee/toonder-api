@@ -21,7 +21,7 @@ router.post("/profiles", validateToken, async (req, res, next) => {
 });
 
 router.get(
-   "/profiles/:profileId/matches",
+  "/profiles/:profileId/matches",
   validateToken,
   async (req, res, next) => {
     try {
@@ -49,17 +49,16 @@ router.get("/profiles/index", validateToken, async (req, res, next) => {
     }
 
     const likedProfiles = userProfile.likes || []; // Profiles the user has liked
+    const dislikedProfiles = userProfile.dislikes || []; // Profiles the user has disliked
 
-    // Build query to exclude liked profiles and the user's own profile
     let query = {
-      _id: { $nin: [...likedProfiles, userProfileId] }, // Exclude liked and own profile
-      gender: userProfile.preferences, // Match gender to user's preferences
-      preferences: userProfile.gender, // Match preferences to user's gender
+      _id: { $nin: [...likedProfiles, ...dislikedProfiles, userProfileId] }, // Exclude liked, disliked, and own profile
     };
 
-    // Remove gender filter if preference is "no preference"
-    if (userProfile.preferences === "no preference") {
-      delete query.gender;
+    // Apply gender and preferences filtering only if the user has preferences
+    if (userProfile.preferences !== "No Preference") {
+      query.gender = userProfile.preferences; // Match gender to user's preferences
+      query.preferences = userProfile.gender; // Match preferences to user's gender
     }
 
     // Fetch one random profile that matches the query
@@ -72,6 +71,7 @@ router.get("/profiles/index", validateToken, async (req, res, next) => {
     next(error);
   }
 });
+ 
 
 router.get("/profiles/:id", async (req, res, next) => {
   try {
@@ -154,9 +154,6 @@ router.put("/profiles/:id/likes", validateToken, async (req, res, next) => {
     const loggedInProfile = await Profile.findById(loggedInProfileId);
     const likedProfile = await Profile.findById(id);
 
-    console.log(loggedInProfile);
-    console.log(likedProfile);
-
     loggedInProfile.likes.push(id);
 
     let message = "👍💖 You have successfully liked this profile!";
@@ -182,7 +179,6 @@ router.put("/profiles/:id/dislikes", validateToken, async (req, res, next) => {
     const { id } = req.params;
 
     const loggedInProfileId = req.user.profile;
-
     const loggedInProfile = await Profile.findById(loggedInProfileId);
     const dislikedProfile = await Profile.findById(id);
 
@@ -190,18 +186,47 @@ router.put("/profiles/:id/dislikes", validateToken, async (req, res, next) => {
       return res.status(404).json({ message: "Profile not found." });
     }
 
+    // Add the disliked profile to the dislikes array if not already present
     if (!loggedInProfile.dislikes.includes(id)) {
       loggedInProfile.dislikes.push(id);
     }
 
     await loggedInProfile.save();
+    await dislikedProfile.save();
 
-    res
-      .status(200)
-      .json({ message: "👎💔 You have successfully disliked this profile!" });
+    // Build query to find the next profile, excluding disliked profiles and the logged-in user
+    const query = {
+      _id: { $nin: [...loggedInProfile.dislikes, loggedInProfileId] }, // Exclude disliked profiles and own profile
+      gender: loggedInProfile.preferences, // Match gender to user's preferences
+      preferences: loggedInProfile.gender, // Match preferences to user's gender
+    };
+
+    // Remove the gender filter if the user's preference is "no preference"
+    if (loggedInProfile.preferences === "no preference") {
+      delete query.gender;
+    }
+
+    // Fetch the next available profile that is neither liked nor disliked
+    const nextProfile = await Profile.find(query)
+      .select("name age location profileImage")
+      .limit(1);
+
+    if (!nextProfile.length) {
+      return res.status(200).json({
+        message: "No more profiles available.",
+        nextProfile: null,
+      });
+    }
+
+    // Send back the next profile
+    return res.status(200).json({
+      message: "👎💔 You have successfully disliked this profile!",
+      nextProfile: nextProfile[0], // Send the next profile (first profile in the array)
+    });
   } catch (error) {
     next(error);
   }
 });
+
 
 export default router;
