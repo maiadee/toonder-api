@@ -8,7 +8,8 @@ export default [
     bio: "Curious mermaid with a love for adventure and music.",
     passions: "Singing, exploring shipwrecks, collecting trinkets",
     icks: "People who don't believe in dreams",
-    profileImage: "https://static.wikia.nocookie.net/maditsmadfunny/images/5/52/Ariel.jpg/revision/latest?cb=20130830133928"
+    profileImage:
+      "https://static.wikia.nocookie.net/princessdisney/images/6/60/Ariel.JPG/revision/latest/thumbnail/width/360/height/360?cb=20130427061152",
   },
   {
     name: "Shrek",
@@ -19,7 +20,8 @@ export default [
     bio: "Big green ogre with a heart of gold, but don’t push my buttons.",
     passions: "Swamps, solitude, eating bugs",
     icks: "Annoying talking donkeys",
-    profileImage: 'https://www.usatoday.com/gcdn/authoring/authoring-images/2024/07/10/USAT/74346543007-d-6-2-shrek-21.JPG?crop=1275,1274,x862,y0',
+    profileImage:
+      "https://www.usatoday.com/gcdn/authoring/authoring-images/2024/07/10/USAT/74346543007-d-6-2-shrek-21.JPG?crop=1275,1274,x862,y0",
   },
   {
     name: "Hercules",
@@ -30,7 +32,8 @@ export default [
     bio: "Hero-in-training with godlike strength.",
     passions: "Saving people, training, proving himself",
     icks: "Deception and liars",
-    profileImage: "https://www.intofilm.org/intofilm-production/scaledcropped/3000x1688https%3A/intofilm-buckets-production-305862963141-resources.s3.eu-west-1.amazonaws.com/intofilm-production/uploads/Hercules-image-1-Disney.jpg/Hercules-image-1-Disney.jpg",
+    profileImage:
+      "https://www.intofilm.org/intofilm-production/scaledcropped/3000x1688https%3A/intofilm-buckets-production-305862963141-resources.s3.eu-west-1.amazonaws.com/intofilm-production/uploads/Hercules-image-1-Disney.jpg/Hercules-image-1-Disney.jpg",
   },
   {
     name: "Mulan",
@@ -41,7 +44,8 @@ export default [
     bio: "Warrior with a heart of honor and courage.",
     passions: "Sword fighting, strategy, proving herself",
     icks: "Disrespectful people",
-    profileImage: "https://www.denofgeek.com/wp-content/uploads/2020/03/Mulan.jpg?fit=1276%2C850",
+    profileImage:
+      "https://www.denofgeek.com/wp-content/uploads/2020/03/Mulan.jpg?fit=1276%2C850",
   },
   {
     name: "Woody",
@@ -52,7 +56,8 @@ export default [
     bio: "Loyal cowboy with a strong sense of leadership.",
     passions: "Riding, taking charge, looking out for friends",
     icks: "Betrayal and being replaced",
-    profileImage: "https://static.wikia.nocookie.net/disney/images/2/22/Profile_-_Woody.jpeg/revision/latest?cb=20200711052417",
+    profileImage:
+      "https://static.wikia.nocookie.net/disney/images/2/22/Profile_-_Woody.jpeg/revision/latest?cb=20200711052417",
   },
   {
     name: "Jasmine",
@@ -63,7 +68,8 @@ export default [
     bio: "Strong-willed princess who dreams of freedom.",
     passions: "Tigers, adventures, flying carpets",
     icks: "Being told what to do",
-    profileImage: "https://static.wikia.nocookie.net/disney/images/c/cd/Profile_-_Jasmine.jpeg/revision/latest?cb=20190312021628",
+    profileImage:
+      "https://static.wikia.nocookie.net/princessdisney/images/c/cc/Jasmine.JPG/revision/latest?cb=20130427061432",
   },
   {
     name: "Hiccup",
@@ -74,7 +80,8 @@ export default [
     bio: "Dragon trainer and Viking leader, a little awkward but full of heart.",
     passions: "Flying dragons, inventing, exploring",
     icks: "Unnecessary violence",
-    profileImage: "https://preview.redd.it/what-do-think-hiccup-would-be-like-in-the-current-v0-inb4u81ip4pd1.jpg?width=468&format=pjpg&auto=webp&s=11ddf2a8b440ad54f2e6ecbcc5803175ad3187be",
+    profileImage:
+      "https://preview.redd.it/what-do-think-hiccup-would-be-like-in-the-current-v0-inb4u81ip4pd1.jpg?width=468&format=pjpg&auto=webp&s=11ddf2a8b440ad54f2e6ecbcc5803175ad3187be",
   },
   {
     name: "Megamind",
@@ -96,7 +103,8 @@ export default [
     bio: "Free-spirited and creative princess with a love for adventure.",
     passions: "Painting, lanterns, singing",
     icks: "Being locked in towers",
-    profileImage: "https://preview.redd.it/which-do-you-prefer-long-hair-or-short-hair-rapunzel-v0-wmuk5dkjf19c1.jpg?width=640&crop=smart&auto=webp&s=a2691c066c37a274b93ce963016580c86315a3d9",
+    profileImage:
+      "https://preview.redd.it/which-do-you-prefer-long-hair-or-short-hair-rapunzel-v0-wmuk5dkjf19c1.jpg?width=640&crop=smart&auto=webp&s=a2691c066c37a274b93ce963016580c86315a3d9",
   },
   {
     name: "Minnie Mouse",
@@ -108,7 +116,8 @@ export default [
     bio: "I love bows, polka dots, and spending time at Mickey's clubhouse.",
     passions: "Dancing, shopping, baking.",
     icks: "Messy eaters and unorganized closets.",
-    profileImage: 'https://i5.walmartimages.com/seo/Cute-Minnie-Mouse-Disney-Cartoon-Customized-Wall-Decal-Custom-Vinyl-Art-Personalized-Name-Baby-Girls-Boys-Kids-Bedroom-Room-Decor-Stickers-Decoration_a7492d09-01d3-45b0-b34b-46e58dc8d7f3_1.678c886902bb0dcd633676c5240f0d5b.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF'
+    profileImage:
+      "https://i5.walmartimages.com/seo/Cute-Minnie-Mouse-Disney-Cartoon-Customized-Wall-Decal-Custom-Vinyl-Art-Personalized-Name-Baby-Girls-Boys-Kids-Bedroom-Room-Decor-Stickers-Decoration_a7492d09-01d3-45b0-b34b-46e58dc8d7f3_1.678c886902bb0dcd633676c5240f0d5b.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF",
   },
   {
     name: "Goofy",
@@ -120,7 +129,8 @@ export default [
     bio: "Just a goofball looking for someone to share laughs and adventures.",
     passions: "Fishing, slapstick comedy, and hiking.",
     icks: "Serious people.",
-    profileImage:'https://i.scdn.co/image/ab67616100005174df3a8706ed65e617d97f62a4'
+    profileImage:
+      "https://i.scdn.co/image/ab67616100005174df3a8706ed65e617d97f62a4",
   },
   {
     name: "Daffy Duck",
@@ -132,7 +142,8 @@ export default [
     bio: "Woo-hoo! I'm not crazy, I'm just a little quackers!",
     passions: "Performing, money-making schemes, and sarcasm.",
     icks: "Slow walkers and people who don’t get sarcasm.",
-    profileImage: 'https://choicefineart.com/cdn/shop/products/looney-tunes-original-production-cel-daffy-duck-711933.jpg?v=1688081270'
+    profileImage:
+      "https://choicefineart.com/cdn/shop/products/looney-tunes-original-production-cel-daffy-duck-711933.jpg?v=1688081270",
   },
   {
     name: "Elsa",
@@ -144,7 +155,8 @@ export default [
     bio: "Let it go! I’m an independent ice queen looking for someone to warm my heart.",
     passions: "Ice sculpting, singing, and snowball fights.",
     icks: "Overheating and poor communication.",
-    profileImage: 'https://i.redd.it/it-was-very-hard-to-find-this-picture-of-elsa-in-a-decent-v0-24kdazop485d1.jpg?width=1020&format=pjpg&auto=webp&s=4d303c6ff5bf5ba50a9f82359ede05c28e4de13f'
+    profileImage:
+      "https://i.redd.it/it-was-very-hard-to-find-this-picture-of-elsa-in-a-decent-v0-24kdazop485d1.jpg?width=1020&format=pjpg&auto=webp&s=4d303c6ff5bf5ba50a9f82359ede05c28e4de13f",
   },
   {
     name: "Velma Dinkley",
@@ -156,7 +168,8 @@ export default [
     bio: "Jinkies! Looking for a smart and caring partner to solve mysteries with.",
     passions: "Reading, science, and solving puzzles.",
     icks: "Lying and unorganized spaces.",
-    profileImage: 'https://i.redd.it/it-was-very-hard-to-find-this-picture-of-elsa-in-a-decent-v0-24kdazop485d1.jpg?width=1020&format=pjpg&auto=webp&s=4d303c6ff5bf5ba50a9f82359ede05c28e4de13f'
+    profileImage:
+      "https://static.wikia.nocookie.net/scoobydoo/images/9/9d/Velma_Dinkley.png/revision/latest?cb=20201229021337",
   },
   {
     name: "Prince Eric",
@@ -168,7 +181,8 @@ export default [
     bio: "Searching for someone who makes me feel like I’m under the sea.",
     passions: "Sailing, music, and ocean conservation.",
     icks: "Sharks and indecision.",
-    profileImage: 'https://hellogiggles.com/wp-content/uploads/sites/7/2016/11/17/eric.jpg?quality=82&strip=all'
+    profileImage:
+      "https://hellogiggles.com/wp-content/uploads/sites/7/2016/11/17/eric.jpg?quality=82&strip=all",
   },
   {
     name: "Kuzco",
@@ -180,7 +194,8 @@ export default [
     bio: "Boom, baby! I'm fabulous and I know it. Let’s make some magic together.",
     passions: "Dancing, fashion, and ruling the world.",
     icks: "Rude people and no sense of style.",
-    profileImage: 'https://static.wikia.nocookie.net/heroes-and-villain/images/6/64/Emperors-new-groove-disneyscreencaps.com-886.jpg/revision/latest?cb=20220320154502'
+    profileImage:
+      "https://static.wikia.nocookie.net/heroes-and-villain/images/6/64/Emperors-new-groove-disneyscreencaps.com-886.jpg/revision/latest?cb=20220320154502",
   },
   {
     name: "Wonder Woman",
@@ -192,7 +207,8 @@ export default [
     bio: "Amazon warrior seeking a strong and compassionate woman for adventures.",
     passions: "Combat training, truth-seeking, and saving the world.",
     icks: "Dishonesty and injustice.",
-    profileImage: 'https://static.wikia.nocookie.net/dcanimated/images/f/f5/Wonder_Woman.png/revision/latest?cb=20180707195354'
+    profileImage:
+      "https://static.wikia.nocookie.net/dcanimated/images/f/f5/Wonder_Woman.png/revision/latest?cb=20180707195354",
   },
   {
     name: "Pikachu",
@@ -204,7 +220,8 @@ export default [
     bio: "Pika pika! Looking for someone electrifying to share my sparks with.",
     passions: "Battling, eating berries, and making friends.",
     icks: "Team Rocket and bad vibes.",
-    profileImage: 'https://www.denofgeek.com/wp-content/uploads/2021/04/Pikachu.png?fit=1920%2C1080'
+    profileImage:
+      "https://www.denofgeek.com/wp-content/uploads/2021/04/Pikachu.png?fit=1920%2C1080",
   },
   {
     name: "Maleficent",
@@ -216,7 +233,8 @@ export default [
     bio: "Dark, mysterious, and misunderstood. Who dares to know the real me?",
     passions: "Magic, protecting nature, and revenge plots.",
     icks: "Fake smiles and insincerity.",
-    profileImage: 'https://static.wikia.nocookie.net/disney/images/0/05/Profile_-_Maleficent.jpeg/revision/latest?cb=20250118085922'
+    profileImage:
+      "https://static.wikia.nocookie.net/disney/images/5/56/HOM_-_3x23_-_Halloween_with_Hades_%288%29.png/revision/latest?cb=20241124092321",
   },
   {
     name: "Buzz Lightyear",
@@ -228,6 +246,7 @@ export default [
     bio: "To infinity and beyond! Looking for a space ranger partner.",
     passions: "Flying, exploring, and heroism.",
     icks: "Cowards and space debris.",
-    profileImage: 'https://static.wikia.nocookie.net/disney/images/7/74/Profile_-_Buzz_Lightyear.jpeg/revision/latest?cb=20190623020017'
+    profileImage:
+      "https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-a07syh_9331bd0a.jpeg",
   },
 ];
