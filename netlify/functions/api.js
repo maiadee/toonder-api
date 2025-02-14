@@ -4,8 +4,8 @@ import mongoSanitize from "express-mongo-sanitize";
 import "dotenv/config";
 import serverless from "serverless-http";
 
-import logger from "./middleware/logger.js";
-import errorHandler from "./middleware/errorHandler.js";
+import logger from "../../middleware/logger.js";
+import errorHandler from "../../middleware/errorHandler.js";
 
 import userController from "../../controllers/userController.js";
 import profileController from "../../controllers/profileController.js";
